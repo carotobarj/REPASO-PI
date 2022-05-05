@@ -68,6 +68,7 @@ router.post("/character", async(req, res) =>{
 newCharacter.addEpisode(episodebyCharacter);
 return res.send("personaje creado exitosamente!") 
 })
+
 // consultar como arreglar el delete
 router.delete("/character", async(req, res) =>{
     try{

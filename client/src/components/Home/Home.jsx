@@ -1,6 +1,6 @@
 import {React} from 'react';
 import {Link} from 'react-router-dom';
-import { getCharacters, getEpisodes } from '../../redux/actions';
+import { getCharacters, getEpisodes, postCharacter } from '../../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
 import Cards from '../Cards/Cards';
@@ -8,23 +8,28 @@ import Cards from '../Cards/Cards';
 
 export default function Home(){
     const dispatch = useDispatch();
-    const AllCharacters = useSelector(state => state.characters);
-    const AllEpisodes = useSelector(state => state.episodes);
+    const allCharacters = useSelector(state => state.characters);
+    const allEpisodes = useSelector(state => state.episodes);
     
 
     useEffect(() => {
         dispatch(getCharacters());
         dispatch(getEpisodes());
+        dispatch(postCharacter());
     }, [dispatch]);
 
     return(
         <div className="home-page">
 
             <h1>Welcome to the Ricky & Morty App</h1>
+
+            <div className='titulo'>
+                <Link to="/character"> CREAR PERSONAJE </Link>
+                </div>
             {
-                AllCharacters?.map(el =>{
+                allCharacters?.map(el =>{
                     return(
-                        <div >
+                        <div className='container'>
                         <Cards 
                             key={el.id}
                             name={el.name}
@@ -36,7 +41,10 @@ export default function Home(){
                         </div>
                     )
                 })
+                
             }
+
+{/* {console.log(allCharacters)} */}
 
         </div>
     )
